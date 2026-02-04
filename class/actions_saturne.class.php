@@ -145,6 +145,14 @@ class ActionsSaturne
             $out .= '<script src="' . dol_buildpath($resourcesRequired['signature'], 1) . '"></script>';
 
             $this->resprints = $out;
+        } elseif (strpos($parameters['context'], 'emailtemplates')) {
+            $resourcesRequired = [
+                'js'        => '/custom/saturne/js/saturne.min.js',
+            ];
+
+            $out  = '<!-- Includes JS added by module saturne -->';
+            $out .= '<script src="' . dol_buildpath($resourcesRequired['js'], 1) . '"></script>';
+            $this->resprints = $out;
         }
 
         return 0; // or return 1 to replace standard code
@@ -367,44 +375,8 @@ class ActionsSaturne
         } elseif (strpos($parameters['context'], 'emailtemplates')) {
             ?>
             <script>
-
-                function updateSub() {
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('action', 'updateSub');
-                    url.searchParams.set('type_template', $(this).val());
-
-                    $.ajax({
-                        url: url.toString(),
-                        method: 'GET',
-                        success: function (response) {
-                            data = JSON.parse(response);
-
-                            $box = $('#idfortooltiponclick_content span')
-                            $extraField = $box.find('.extrafield')
-
-                            if ($extraField.length === 0) {
-                                $extraField = $('<div class="extrafield"></div>');
-                                $('#idfortooltiponclick_content span').append($extraField);
-                            } else {
-                                $extraField.empty();
-                            }
-
-                            $extraField.append(
-                                $('<br>'),
-                                $('<strong>Extrafields</strong>')
-                            );
-
-                            data.forEach(item => {
-                                $extraField.append(
-                                    $('<div></div>').text(item)
-                                );
-                            });
-                        }
-                    });
-                }
-
-                updateSub.call($('#type_template'))
-                $('#type_template').on('change', updateSub)
+                window.saturne.emailTemplate.updateSub.call($('#type_template'))
+                $('#type_template').on('change', window.saturne.emailTemplate.updateSub)
             </script>
 
             <?php
