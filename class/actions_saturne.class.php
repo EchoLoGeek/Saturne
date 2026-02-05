@@ -145,6 +145,14 @@ class ActionsSaturne
             $out .= '<script src="' . dol_buildpath($resourcesRequired['signature'], 1) . '"></script>';
 
             $this->resprints = $out;
+        } elseif (strpos($parameters['context'], 'emailtemplates')) {
+            $resourcesRequired = [
+                'js'        => '/custom/saturne/js/saturne.min.js',
+            ];
+
+            $out  = '<!-- Includes JS added by module saturne -->';
+            $out .= '<script src="' . dol_buildpath($resourcesRequired['js'], 1) . '"></script>';
+            $this->resprints = $out;
         }
 
         return 0; // or return 1 to replace standard code
@@ -195,6 +203,7 @@ class ActionsSaturne
     public function printCommonFooter(array $parameters): int
     {
         global $langs, $user, $object, $db;
+
 
         if (strpos($parameters['context'], 'usercard') !== false) {
             $id = GETPOST('id');
@@ -363,6 +372,14 @@ class ActionsSaturne
                 </script>
             ";
 
+        } elseif (strpos($parameters['context'], 'emailtemplates')) {
+            ?>
+            <script>
+                window.saturne.emailTemplate.updateSub.call($('#type_template'))
+                $('#type_template').on('change', window.saturne.emailTemplate.updateSub)
+            </script>
+
+            <?php
         }
 
         return 0; // or return 1 to replace standard code
@@ -439,6 +456,30 @@ class ActionsSaturne
                     }
                 }
             }
+        } elseif (strpos($parameters['context'], 'emailtemplates') && $action == 'updateSub') {
+            $templateType = GETPOST('type_template');
+            if (str_ends_with($templateType, '_send')) {
+                $templateType = substr($templateType, 0, -5);
+            }
+
+            $objectMeta = saturne_get_objects_metadata();
+            $tmpObj = null;
+
+            foreach ($objectMeta as $key => $value) {
+                if (str_contains($key, $templateType) || $value['table_element'] == $templateType) {
+                    $tmpObj = $value['object'];
+                    break;
+                }
+            }
+
+            $extrafields = [];
+            if (!empty($tmpObj)) {
+                $tmpObj->fetch_optionals();
+                $extrafields = array_keys($tmpObj->array_options);
+                $extrafields = array_map(fn($s) => '__EXTRAFIELD_' . dol_strtoupper(preg_replace('/^options_/', '', $s)) . '__', $extrafields);
+            }
+
+            print_r(json_encode($extrafields)); exit;
         }
 
         return 0; // or return 1 to replace standard code
