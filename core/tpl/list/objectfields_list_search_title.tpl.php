@@ -76,3 +76,4 @@ if (isset($extrafields->attributes[$object->table_element]['computed']) && is_ar
         }
     }
 }
+print '</thead>';
