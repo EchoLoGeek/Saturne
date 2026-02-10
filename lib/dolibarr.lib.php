@@ -409,7 +409,6 @@ function saturne_vignette($file, $maxWidth = 160, $maxHeight = 120, $extName = '
     return $imgThumbName;
 }
 
-
 /**
  *	Get title line of an array
  *
@@ -428,7 +427,7 @@ function saturne_vignette($file, $maxWidth = 160, $maxHeight = 120, $extName = '
  *  @param	int<0,1> 	$forcenowrapcolumntitle		No need to use 'wrapcolumntitle' css style
  *	@return	string
  */
-function get_title_field_of_list($name, $thead = 0, $file = "", $field = "", $begin = "", $moreparam = "", $moreattrib = "", $sortfield = "", $sortorder = "", $prefix = "", $disablesortlink = 0, $tooltip = '', $forcenowrapcolumntitle = 0, $linkcustomclass = "")
+function saturne_get_title_field_of_list($name, $thead = 0, $file = "", $field = "", $begin = "", $moreparam = "", $moreattrib = "", $sortfield = "", $sortorder = "", $prefix = "", $disablesortlink = 0, $tooltip = '', $forcenowrapcolumntitle = 0, $linkcustomclass = "")
 {
 	global $langs, $form;
 	//print "$name, $file, $field, $begin, $options, $moreattrib, $sortfield, $sortorder<br>\n";
@@ -533,7 +532,9 @@ function get_title_field_of_list($name, $thead = 0, $file = "", $field = "", $be
 
 	$tagend = '</'.$tag.'>';
 
-	$out = $tagstart.$sortimg.$out.$tagend;
+    $resizeHandler = '<div class="resize-handle"></div>';
+
+	$out = $tagstart.$sortimg.$out.$tagend.$resizeHandler;
 
 	return $out;
 }
