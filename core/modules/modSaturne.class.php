@@ -200,6 +200,7 @@ class modSaturne extends DolibarrModules
             $i++ => ['SATURNE_MEDIA_MAX_HEIGHT_LARGE', 'integer', 720, '', 0, 'current'],
             $i++ => ['SATURNE_DISPLAY_NUMBER_MEDIA_GALLERY', 'integer', 8, '', 0, 'current'],
             $i++ => ['SATURNE_MEDIA_RESOLUTION_USED', 'chaine', 'fullHD-1920x1080', '', 0, 'current'],
+            $i++ => ['SATURNE_SHOW_PATCH_NOTE_FROM_GITHUB', 'integer', 1, '', 0, 'current'],
 
             // CONST DOLIBARR
             $i++ => ['MAIN_ALLOW_SVG_FILES_AS_IMAGES', 'integer', 1, '', 0, 'current'],

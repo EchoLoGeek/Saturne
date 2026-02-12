@@ -174,7 +174,6 @@ print '</td><td class="center">';
 print ajax_constantonoff('SATURNE_ATTENDANTS_ADD_STATUS_MANAGEMENT');
 print '</td></tr>';
 
-
 // Use fast upload improvement
 print '<tr class="oddeven"><td>';
 print  $langs->trans('UseFastUploadImprovement');
@@ -197,6 +196,15 @@ print '</td><td>';
 print $langs->transnoentities('ShowAllMediaInfosDescription');
 print '</td><td class="center">';
 print ajax_constantonoff('SATURNE_MEDIA_GALLERY_SHOW_ALL_MEDIA_INFOS');
+print '</td></tr>';
+
+// Show patch note from GitHub
+print '<tr class="oddeven"><td>';
+print  $langs->trans('ShowPatchNoteFromGitHub');
+print '</td><td>';
+print $langs->trans('ShowPatchNoteFromGitHubDescription');
+print '</td><td class="center">';
+print ajax_constantonoff('SATURNE_SHOW_PATCH_NOTE_FROM_GITHUB');
 print '</td></tr>';
 
 // End of the table
